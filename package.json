@@ -13,7 +13,7 @@
 		"envify": "^4.0.0",
 		"jstransformer-highlight": "^1.0.1",
 		"npm-parallel": "^2.0.1",
-		"pug": "^2.0.0-beta.12",
+		"pug-cli": "^1.0.0-alpha6",
 		"stylus": "^0.54.5",
 		"uglifyify": "^3.0.4"
 	},
