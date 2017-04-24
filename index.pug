@@ -1,0 +1,183 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="utf-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
+		meta(name="apple-mobile-web-app-status-bar-style" content="white")
+		meta(name="apple-mobile-web-app-capable" content="yes")
+
+		title Free BIN/IIN Lookup Web Service - binlist.net
+
+		link(rel="shortcut icon" type="image/png" href="./favicon.png")
+		link(rel="stylesheet" href="./index.css")
+		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous")
+
+		script(src="./index.js" defer)
+
+	body
+		h1.logo Binlist.net
+
+		section.lookup
+			form
+				input.iin(type="search" value="4571 7360" autofocus)
+
+				p Enter the first digits of a card number (BIN/IIN)
+
+			ul.result
+				li.scheme
+					h2 Scheme / network
+
+					p Visa
+
+				li.brand
+					h2 Brand
+
+					p Visa/Dankort
+
+				li.number
+					h2 Card number
+
+					ul
+						li.length
+							h3 Length
+
+							p 16
+
+						li.luhn
+							h3 LUHN
+
+							ol
+								li.yes.selected Yes
+								li.no No
+
+				li.type
+					h2 Type
+
+					ol
+						li(data-value="debit").selected Debit
+						li(data-value="credit") Credit
+
+				li.prepaid
+					h2 Prepaid
+
+					ol
+						li.yes Yes
+						li.no.selected No
+
+				li.country
+					h2 Country
+
+					p.name 🇩🇰 Denmark
+
+					p.geo (latitude: <span class="latitude">56</span>, longitude: <span class="longitude">10</span>)
+
+				li.bank
+					h2 Bank
+
+					p.name Jyske Bank, Hjørring
+
+					p.url: a(href="https://jyskebank.dk") www.jyskebank.dk
+
+					p.phone +4589893300
+
+		h2 API
+
+		h3 curl / https
+
+		pre
+			code.hljs
+				:highlight(lang="bash")
+					curl "https://lookup.binlist.net/45717360"
+
+		pre
+			code.hljs.secondary
+				:highlight(lang="json")
+					{
+					  "number": {
+					    "length": 16,
+					    "luhn": true
+					  },
+					  "scheme": "visa",
+					  "type": "debit",
+					  "brand": "Visa/Dankort",
+					  "prepaid": false,
+					  "country": {
+					    "numeric": "208",
+					    "alpha2": "DK",
+					    "name": "Denmark",
+					    "emoji": "🇩🇰",
+					    "currency": "DKK",
+					    "latitude": 56,
+					    "longitude": 10
+					  },
+					  "bank": {
+					    "name": "Jyske Bank",
+					    "url": "www.jyskebank.dk",
+					    "phone": "+4589893300",
+					    "city": "Hjørring"
+					  }
+					}
+
+		h3 Node.js / npm / browser(ify)
+
+		pre
+			code.hljs
+				:highlight(lang="bash")
+					npm install binlookup
+
+		pre
+			code.hljs.secondary
+				:highlight(lang="javascript")
+					var lookup = require('binlookup')()
+
+					// callback
+					lookup('45717360', function( err, data ){
+					  if (err)
+					    return console.error(err)
+
+					  console.log(data)
+					})
+
+					// promise
+					lookup('45717360').then(console.log, console.error)
+
+		ul
+			li: a(href="https://www.npmjs.com/package/binlookup") npm package
+			li: a(href="https://github.com/paylike/binlookup") Source code
+
+		h3 Related projects and resources
+
+		ul
+			li: a(href="https://github.com/paylike/luhn") LUHN check/calculate
+			li: a(href="https://github.com/srcagency/iso-3166-1-codes") ISO 3166-1 codes
+			li: a(href="https://github.com/srcagency/country-currencies") Country currencies
+			li: a(href="https://github.com/srcagency/country-coords") Country coordinates
+			li: a(href="https://github.com/srcagency/country-to-emoji-flag") Country emoji flags
+
+		h2 About and contact
+
+		p
+
+			| binlist.net is a public web service for searching Issuer
+			| Identification Numbers (IIN).
+
+		p
+
+			| The first 6 or 8 digits of a payment card number (credit cards,
+			| debit cards, etc.) are known as the
+			| #[a(href="https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_.28IIN.29") Issuer Identification Numbers (IIN)]
+			| , previously known as Bank Identification Number (BIN).
+			| These identify the institution that issued the card to the card
+			| holder.
+
+		p
+
+			| This web service is comprised of multiple data sources providing
+			| the information of credit and debit cards. Although the service
+			| is very accurate, don't expect it to be perfect.
+
+		h3 Got corrections?
+
+		p
+
+			| We welcome pull requests on #[a(href="https://github.com/binlist/data") github.com/binlist/data].
