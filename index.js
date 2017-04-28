@@ -11,7 +11,8 @@ var cache = new AsyncCache({
 	load: lookup,
 });
 
-var $iin = document.querySelector('input.iin')
+var $form = document.querySelector('section.lookup form')
+var $iin = $form.querySelector('input.iin')
 
 var blueprint = {
 	number: {},
@@ -23,11 +24,20 @@ var blueprint = {
 	bank: null,
 }
 
-$iin.addEventListener('input', function( e ){
-	var $ = e.target
-	var prefix = (($.value.match(/[0-9]+/g) || []).join('').match(/(.{1,4})/g) || []).join(' ')
+$form.addEventListener('submit', function( e ){
+	e.preventDefault()
 
-	setValue($, prefix)
+	submit()
+})
+
+$iin.addEventListener('input', function( e ){
+	submit()
+})
+
+function submit(){
+	var prefix = (($iin.value.match(/[0-9]+/g) || []).join('').match(/(.{1,4})/g) || []).join(' ')
+
+	setValue($iin, prefix)
 
 	if (prefix.length < 4)
 		return render(blueprint)
@@ -39,7 +49,7 @@ $iin.addEventListener('input', function( e ){
 		if ($iin.value === prefix)
 			render(range)
 	})
-})
+}
 
 function setValue( $node, value ) {
 	if ($node.setSelectionRange) {
