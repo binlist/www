@@ -1,5 +1,12 @@
 'use strict'
 
+// Poly for IE, used in binlookup
+var assign = require('object-assign')
+
+if (Object.assign === undefined)
+	Object.assign = assign
+
+
 var AsyncCache = require('async-cache')
 var lookup = require('binlookup')()
 var ga = require('./ga')

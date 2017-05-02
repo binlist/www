@@ -6,6 +6,7 @@
 		"add-script": "^1.0.1",
 		"async-cache": "^1.1.0",
 		"binlookup": "^2.0.0",
+		"object-assign": "^4.1.1",
 
 		"autoprefixer-stylus": "^0.13.0",
 		"browserify": "^14.3.0",
