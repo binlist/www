@@ -162,7 +162,8 @@ html(lang="en")
 		p
 
 			| Requests are throttled at 2 per second with a burst allowance of
-			| 10.
+			| 10. If you hit the speed limit the service will return a
+			| #[a(href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429") 429] http status code.
 
 		p
 
