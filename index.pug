@@ -195,8 +195,10 @@ html(lang="en")
 
 		p
 
-			| binlist.net is a public web service for searching Issuer
-			| Identification Numbers (IIN).
+			| binlist.net is a public web service for looking up credit and
+			| debit card meta data.
+
+		h3 IIN / BIN
 
 		p
 
@@ -207,11 +209,29 @@ html(lang="en")
 			| These identify the institution that issued the card to the card
 			| holder.
 
+		h3 Data
+
 		p
 
-			| This web service is comprised of multiple data sources providing
-			| the information of credit and debit cards. Although the service
-			| is very accurate, don't expect it to be perfect.
+			| The data backing this service is not a table of card number
+			| prefixes. That would be unreliable and provide you with too little
+			| information. The data is sourced from multiple places, filtered,
+			| prioritized, and combined to form the data you eventually see.
+			| Some data is formed based on assumptions we make by looking at
+			| adjoining cards.
+
+		p
+
+			| Although this service is very accurate, don't expect it to be
+			| perfect.
+
+		h4 Dataset downloads, caching and scraping
+
+		p
+
+			| For the reasons above, we do not provide a static database dump; it is either
+			| terribly imprecise or you would need specialized software to compile the
+			| results.
 
 		h3 Got corrections?
 
