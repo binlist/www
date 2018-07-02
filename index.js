@@ -6,7 +6,6 @@ var assign = require('object-assign')
 if (Object.assign === undefined)
 	Object.assign = assign
 
-
 var AsyncCache = require('async-cache')
 var lookup = require('binlookup')()
 var ga = require('./ga')
@@ -31,17 +30,17 @@ var blueprint = {
 	bank: null,
 }
 
-$form.addEventListener('submit', function( e ){
+$form.addEventListener('submit', function (e) {
 	e.preventDefault()
 
 	submit()
 })
 
-$iin.addEventListener('input', function( e ){
+$iin.addEventListener('input', function (e) {
 	submit()
 })
 
-function submit(){
+function submit() {
 	var prefix = (($iin.value.match(/[0-9]+/g) || []).join('').match(/(.{1,4})/g) || []).join(' ')
 
 	setValue($iin, prefix)
@@ -49,7 +48,7 @@ function submit(){
 	if (prefix.length < 4)
 		return render(blueprint)
 
-	cache.get(prefix.replace(/ /g, ''), function( err, range ){
+	cache.get(prefix.replace(/ /g, ''), function (err, range) {
 		if (err)
 			return render(blueprint)
 
@@ -58,7 +57,7 @@ function submit(){
 	})
 }
 
-function setValue( $node, value ) {
+function setValue($node, value) {
 	if ($node.setSelectionRange) {
 		var start = $node.selectionStart
 		var end = $node.selectionEnd
@@ -92,10 +91,10 @@ var $bankUrl = $result.querySelector('li.bank p.url')
 var $bankUrlLink = $result.querySelector('li.bank p.url a')
 var $bankPhone = $result.querySelector('li.bank p.phone')
 
-function render( range ){
+function render(range) {
 	if (range.scheme) {
 		$scheme.classList.remove('any')
-		$scheme.textContent = range.scheme.substr(0, 1).toUpperCase()+range.scheme.substr(1)
+		$scheme.textContent = range.scheme.substr(0, 1).toUpperCase() + range.scheme.substr(1)
 	} else {
 		$scheme.classList.add('any')
 		$scheme.textContent = ''
@@ -125,7 +124,7 @@ function render( range ){
 		$countryName.classList.remove('any')
 		$countryGeoLat.classList.remove('any')
 		$countryGeoLon.classList.remove('any')
-		$countryName.textContent = range.country.emoji+' '+range.country.name
+		$countryName.textContent = range.country.emoji + ' ' + range.country.name
 		$countryGeoLat.textContent = range.country.latitude
 		$countryGeoLon.textContent = range.country.longitude
 	} else {
@@ -139,7 +138,7 @@ function render( range ){
 
 	if (range.bank && range.bank.name) {
 		$bankName.classList.remove('any')
-		$bankName.textContent = range.bank.name+(range.bank.city ? ', '+range.bank.city : '')
+		$bankName.textContent = range.bank.name + (range.bank.city ? ', ' + range.bank.city : '')
 	} else {
 		$bankName.classList.add('any')
 		$bankName.textContent = ''
@@ -148,7 +147,7 @@ function render( range ){
 	if (range.bank && range.bank.url) {
 		$bankUrl.classList.remove('any')
 		$bankUrlLink.textContent = range.bank.url
-		$bankUrlLink.setAttribute('href', 'http://'+range.bank.url)
+		$bankUrlLink.setAttribute('href', 'http://' + range.bank.url)
 	} else {
 		$bankUrl.classList.add('any')
 		$bankUrlLink.textContent = ''
@@ -164,8 +163,8 @@ function render( range ){
 	}
 }
 
-function renderBoolean( $s, value ){
-	Array.prototype.forEach.call($s, function( $ ){
+function renderBoolean($s, value) {
+	Array.prototype.forEach.call($s, function ($) {
 		if ($.classList.contains('yes') && value === true
 			|| $.classList.contains('no') && value === false) {
 			$.classList.add('selected')
@@ -175,8 +174,8 @@ function renderBoolean( $s, value ){
 	})
 }
 
-function renderList( $s, value ){
-	Array.prototype.forEach.call($s, function( $ ){
+function renderList($s, value) {
+	Array.prototype.forEach.call($s, function ($) {
 		if ($.dataset.value === value) {
 			$.classList.add('selected')
 		} else {
@@ -184,3 +183,13 @@ function renderList( $s, value ){
 		}
 	})
 }
+
+$(function () {
+	$.getJSON('https://api.ipgeolocation.io/ipgeo?fields=is_eu&apiKey=5a3142c6065e446b8c279d7bc5f13c8f', function (data) {
+		if (data.is_eu == true) {
+			$('.ad').show();
+		} else {
+			$('.ad').hide();
+		}
+	});
+});
