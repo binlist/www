@@ -183,13 +183,3 @@ function renderList($s, value) {
 		}
 	})
 }
-
-$(function () {
-	$.getJSON('https://api.ipgeolocation.io/ipgeo?fields=is_eu&apiKey=5a3142c6065e446b8c279d7bc5f13c8f', function (data) {
-		if (data.is_eu == true) {
-			$('.ad').show();
-		} else {
-			$('.ad').hide();
-		}
-	});
-});
